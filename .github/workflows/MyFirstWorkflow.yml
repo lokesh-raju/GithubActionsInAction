@@ -41,7 +41,7 @@ on:
   repository_dispatch:
     types: [event1, event2]
   
-
+# needs param will allow us to chain things together
 jobs:
   MyFirstJob:
     runs-on: ubuntu-latest
@@ -67,7 +67,24 @@ jobs:
       if: ${{ github.event_name == 'repository_dispatch' }}
       run: |
         echo "Payload: ${{ toJSON(github.event.client_payload) }}"
-        
+  
+  MySecound_Parallel_Job:
+    runs-on:  ubuntu-latest
+    steps:
+    - run: "echo Job: ${{ github.job }}"
+    
+  MyThird_Secound_parallel_sequence_Job:
+    runs-on:  ubuntu-latest
+    needs: [MySecound_Parallel_Job]
+    steps:
+    - run: "echo Job: ${{ github.job }}"
+
+  MyForth_sequence_Job:
+    runs-on: ubuntu-latest
+    needs: [MySecound_Parallel_Job, MyThird_Secound_parallel_sequence_Job,MyFirstJob]
+    steps:
+      - run: "echo Job: ${{ github.job }}"
+    
       
   
    
