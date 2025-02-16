@@ -3,6 +3,17 @@ on:
   push:
     branches: 
     - main
+  schedule:
+    # Schedule triggers allow you to start a workflow at a scheduled time—they use the same syntax as cron jobs. The syntax consists of five fields that represent the minute (0–59), hour (0–23), day of month (1–31), month (1–12 or JAN–DEC) and day of week (0–6 or SUN–SAT). You can use the operators shown in
+    # Runs at every 15th minute
+    # - cron:  '*/15 * * * *'
+    # Runs every hour from 9am to 5pm
+    # - cron:  '0 9-17 * * *'
+    # Runs every Friday at midnight
+    # - cron:  '0 0 * * FRI'
+    # Runs every quarter (00:00 on day 1 every 3rd month)
+    - cron:  '0 0 1 */3 *'
+  # manual triggers
   workflow_dispatch:
 
 jobs:
