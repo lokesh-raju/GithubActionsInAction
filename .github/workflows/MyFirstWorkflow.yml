@@ -109,7 +109,7 @@ jobs:
           node-version: ${{matrix.node_version}}
 
   Outputs_masking:
-    runs-on:  ${{matrix.os_version}}
+    runs-on: ubunutu-latest
     steps:
       - name: Set color
         id: color-generator
