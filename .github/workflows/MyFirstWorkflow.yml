@@ -81,7 +81,7 @@ jobs:
         npm install
         npm run build
         echo "Job: ${{ github.job }}"
-      working-directory: ./temp
+      working-directory: ./
       shell: bash
 
   MyForth_sequence_Job:
