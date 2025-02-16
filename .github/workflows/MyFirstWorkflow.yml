@@ -77,7 +77,12 @@ jobs:
     runs-on:  ubuntu-latest
     needs: [MySecound_Parallel_Job]
     steps:
-    - run: "echo Job: ${{ github.job }}"
+    - run: |
+        npm install
+        npm run build
+        echo "Job: ${{ github.job }}"
+      working-directory: ./temp
+      shell: bash
 
   MyForth_sequence_Job:
     runs-on: ubuntu-latest
