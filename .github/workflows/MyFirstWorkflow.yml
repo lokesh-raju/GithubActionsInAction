@@ -78,8 +78,8 @@ jobs:
     needs: [MySecound_Parallel_Job]
     steps:
     - run: |
-        npm install
-        npm run build
+        #npm install
+        #npm run build
         echo "Job: ${{ github.job }}"
       working-directory: ./
       shell: bash
