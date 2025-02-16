@@ -107,7 +107,7 @@ jobs:
       - uses: actions/setup-node@v4.2.0
         with:
           node-version: ${{matrix.node_version}}
-
+  # Masking
   Outputs_masking:
     runs-on: ubunutu-latest
     steps:
@@ -126,6 +126,14 @@ jobs:
         run: |
            echo "the secret number is ${{steps.set_masked_secret.outputs.the_secret}}" 
 
+  adding_env_variables:
+    runs-on: ubunutu-latest
+    steps:
+      - name: Set the env variable
+        id: env-generator
+        run: echo "SELECTED_ENV=stage" >> "$GITHUB_ENV"
+      - name: Get the env variable
+        run: echo "${{ env.SELECTED_ENV }}"
     
       
   
