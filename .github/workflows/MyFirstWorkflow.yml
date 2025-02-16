@@ -98,8 +98,8 @@ jobs:
       fail-fast: false
       max-parallel: 3
       matrix:
-        os_version: [macos-latest, ubunutu-latest]
-        node_version: [16]
+        os_version: [ubunutu-latest]
+        node_version: [16,17]
     name: Matrix_Job
     runs-on:  ${{matrix.os_version}}
     needs: [MyFirstJob]
@@ -107,6 +107,25 @@ jobs:
       - uses: actions/setup-node@v4.2.0
         with:
           node-version: ${{matrix.node_version}}
+
+  Outputs_masking:
+    runs-on:  ${{matrix.os_version}}
+    steps:
+      - name: Set color
+        id: color-generator
+        run: echo "SELECTED_COLOR=green" >> "$GITHUB_OUTPUT"
+      - name: Get color
+        run: echo "${{ steps.color-generator.outputs.SELECTED_COLOR }}"
+      - id: set_masked_secret
+        name : Generate, mask and output the secret
+        run: |
+           the_secret= $((RANDOM))
+           echo "::add-mask::$the_secret"
+           echo "the_secret" >> "$GITHUB_OUTPUT"
+      - name: Retrieve the secret
+        run: |
+           echo "the secret number is ${{steps.set_masked_secret.outputs.the_secret}}" 
+
     
       
   
